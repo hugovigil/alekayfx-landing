@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FX Proyect — Formación de Trading con @alekayfx</title>
+  <meta name="description" content="Aprende a operar futuros y forex de manera simple con Alejandro Gañan. Formación con operativa en directo todas las semanas. Que nadie te diga que es suerte.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== SUBTLE TOP GLOW ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container--wide {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== SECTION DIVIDER ===== */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #1e1e1e;
+      margin: 0 auto;
+      max-width: 1100px;
+    }
+
+    /* =============================================
+       SECCIÓN 1 — HERO (above the fold)
+       Logo + Headline + Video + CTA text
+       ============================================= */
+    .hero-fold {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 24px 30px;
+      text-align: center;
+      gap: 0;
+    }
+
+    /* — LOGO — */
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 5px;
+      color: #ffffff;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .logo-accent {
+      color: #ffffff;
+      opacity: 0.7;
+    }
+
+    .logo-dot {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 10px solid #ffffff;
+      display: inline-block;
+    }
+
+    /* — HEADLINE — */
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5.5vw, 72px);
+      line-height: 1.02;
+      color: #ffffff;
+      letter-spacing: 1.5px;
+      max-width: 1050px;
+      margin: 0 auto 12px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: #EECE47;
+    }
+
+    .hero-headline .highlight {
+      color: #EECE47;
+    }
+
+    /* — SUBHEADLINE — */
+    .hero-subheadline {
+      font-size: clamp(13px, 1.6vw, 16px);
+      color: #b0b0b0;
+      max-width: 750px;
+      margin: 0 auto 22px;
+      line-height: 1.6;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    /* — VSL EMBED — */
+    .vsl-wrapper {
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto 18px;
+    }
+
+    .vsl-embed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      background: #111111;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .vsl-embed .placeholder-content {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: #888888;
+      font-size: 14px;
+    }
+
+    .play-icon {
+      width: 64px;
+      height: 64px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .play-icon::after {
+      content: '';
+      display: block;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 12px 0 12px 22px;
+      border-color: transparent transparent transparent #ffffff;
+      margin-left: 4px;
+    }
+
+    /* — CTA LINE (below video) — */
+    .cta-line {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(22px, 3vw, 36px);
+      color: #ffffff;
+      letter-spacing: 1px;
+    }
+
+    .cta-line .highlight {
+      color: #c0c0c0;
+    }
+
+    /* — Scroll hint — */
+    .scroll-hint {
+      margin-top: 10px;
+      animation: bounce 2s ease-in-out infinite;
+      color: #ffffff;
+      font-size: 22px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); opacity: 0.4; }
+      50% { transform: translateY(6px); opacity: 1; }
+    }
+
+
+    /* =============================================
+       SECCIÓN 2 — TYPEFORM EMBED
+       ============================================= */
+    .typeform-section {
+      padding: 60px 24px 70px;
+      text-align: center;
+    }
+
+    .typeform-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      color: #ffffff;
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+    }
+
+    .typeform-title .highlight {
+      color: #c0c0c0;
+    }
+
+    .typeform-embed-wrapper {
+      max-width: 750px;
+      margin: 0 auto;
+      background: #0f0f0f;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      min-height: 520px;
+    }
+
+    /* Placeholder content (replace with actual Typeform iframe) */
+    .typeform-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 520px;
+      padding: 40px;
+      gap: 20px;
+      color: #555;
+    }
+
+    .typeform-placeholder .tf-icon {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #2a2a2a;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #ffffff;
+    }
+
+    .typeform-placeholder p {
+      font-size: 13px;
+      color: #555;
+      max-width: 350px;
+      line-height: 1.6;
+    }
+
+    .typeform-placeholder code {
+      background: #1a1a1a;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #ffffff;
+      border: 1px solid #2a2a2a;
+      display: inline-block;
+    }
+
+
+    /* =============================================
+       SECCIÓN 3 — TESTIMONIOS EN VÍDEO
+       ============================================= */
+    .testimonials-video-section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .section-title .underline {
+      text-decoration: underline;
+      text-decoration-color: #ffffff;
+      text-underline-offset: 4px;
+    }
+
+    .section-title .highlight {
+      color: #c0c0c0;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+
+    .video-testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .video-testimonial-card {
+      text-align: center;
+    }
+
+    .video-testimonial-placeholder {
+      position: relative;
+      width: 100%;
+      padding-bottom: 177.78%; /* 9:16 */
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .video-testimonial-placeholder .placeholder-inner {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #555;
+      font-size: 12px;
+      padding: 16px;
+    }
+
+    .play-icon-small {
+      width: 44px;
+      height: 44px;
+      border: 2px solid #2a2a2a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-icon-small::after {
+      content: '';
+      display: block;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 8px 0 8px 14px;
+      border-color: transparent transparent transparent #2a2a2a;
+      margin-left: 3px;
+    }
+
+    .testimonial-name {
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .testimonial-result {
+      font-size: 12px;
+      color: #c0c0c0;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    .testimonial-detail {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    /* Arrow between name and video */
+    .testimonial-arrow {
+      color: #ffffff;
+      font-size: 18px;
+      margin-top: 6px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+
+    /* =============================================
+       SECCIÓN 4 — SCREENSHOTS / PRUEBA SOCIAL
+       ============================================= */
+    .testimonials-screenshot-section {
+      padding: 60px 0 70px;
+    }
+
+    .big-number-container {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .big-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 10vw, 84px);
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: 2px;
+      text-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+    }
+
+    .big-number-sub {
+      font-size: 15px;
+      color: #888888;
+      margin-top: 8px;
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .screenshot-placeholder {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      aspect-ratio: 9 / 16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 11px;
+      text-align: center;
+      padding: 12px;
+      transition: border-color 0.3s ease;
+    }
+
+    .screenshot-placeholder:hover {
+      border-color: #404040;
+    }
+
+
+    /* =============================================
+       CTA FINAL
+       ============================================= */
+    .footer-cta-section {
+      padding: 50px 0 70px;
+      text-align: center;
+    }
+
+    .footer-cta-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+      color: #ffffff;
+    }
+
+    .footer-cta-headline .highlight {
+      color: #c0c0c0;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #ffffff;
+      color: #0a0a0a;
+      padding: 20px 48px;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 24px rgba(255, 255, 255, 0.15);
+    }
+
+    .cta-button:hover {
+      background: #e0e0e0;
+      transform: scale(1.02);
+      box-shadow: 0 6px 32px rgba(255, 255, 255, 0.25);
+    }
+
+    .cta-subtext {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: 0.3px;
+    }
+
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-fold {
+        min-height: auto;
+        padding: 24px 16px 30px;
+        gap: 0;
+      }
+
+      .logo-text {
+        font-size: 18px;
+        margin-bottom: 16px;
+      }
+
+      .hero-headline {
+        margin-bottom: 10px;
+      }
+
+      .hero-subheadline {
+        margin-bottom: 18px;
+      }
+
+      .vsl-wrapper {
+        margin-bottom: 16px;
+      }
+
+      .video-testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .screenshot-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .cta-button {
+        padding: 18px 36px;
+        font-size: 16px;
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .typeform-embed-wrapper {
+        min-height: 450px;
+      }
+
+      .typeform-placeholder {
+        min-height: 450px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-fold {
+        padding: 18px 14px 24px;
+      }
+
+      .logo-text {
+        font-size: 16px;
+        letter-spacing: 3px;
+        margin-bottom: 12px;
+      }
+
+      .hero-subheadline {
+        margin-bottom: 14px;
+      }
+
+      .video-testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .cta-button {
+        padding: 16px 24px;
+        font-size: 15px;
+      }
+    }
+
+    /* ===== Large screens: ensure hero fits viewport ===== */
+    @media (min-width: 1024px) {
+      .hero-fold {
+        min-height: 100vh;
+        padding: 20px 40px 24px;
+      }
+
+      .hero-headline {
+        font-size: 68px;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .hero-headline {
+        font-size: 74px;
+        max-width: 1100px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- ABOVE THE FOLD — Logo + Headline + VSL + CTA -->
+  <!-- ============================================ -->
+  <section class="hero-fold">
+
+    <!-- Logo -->
+    <div class="logo-text">
+      <span class="logo-dot"></span>
+      FX <span class="logo-accent">Proyect</span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="hero-headline">
+      Descubre Cómo Conseguir tu <span class="highlight">Primer Payout en Futuros o Forex</span> en Menos de <em>60 Días</em> Operando en Directo con Alejandro
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="hero-subheadline">
+      Sin estrategias complicadas ni perder horas frente a los gráficos… Solo el método que Alejandro usa cada semana en sus sesiones en directo.
+    </p>
+
+    <!-- VSL Video -->
+    <div class="vsl-wrapper">
+      <div class="vsl-embed">
+        <!-- ========================================= -->
+        <!-- REEMPLAZAR ESTE BLOQUE CON TU EMBED:      -->
+        <!-- <iframe src="https://www.youtube.com/embed/TU_VIDEO_ID"
+                 frameborder="0" allowfullscreen
+                 style="position:absolute;top:0;left:0;width:100%;height:100%;">
+            </iframe>                                  -->
+        <!-- ========================================= -->
+        <div class="placeholder-content">
+          <div class="play-icon"></div>
+          <span>VIDEO DE VENTA (VSL)</span>
+          <span style="font-size: 11px; opacity: 0.5;">Reemplaza con tu embed de YouTube</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA line -->
+    <p class="cta-line">Únete a <span class="highlight">FX Proyect</span> Aquí:</p>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">↓</div>
+
+  </section>
+
+
+  <!-- ============================================ -->
+  <!-- SECCIÓN — TYPEFORM EMBED                    -->
+  <!-- ============================================ -->
+  <section class="typeform-section" id="typeform">
+    <div class="container">
+      <h2 class="typeform-title">Aplica a <span class="highlight">FX Proyect</span> Aquí:</h2>
+
+      <div class="typeform-embed-wrapper">
+        <!-- ========================================= -->
+        <!-- REEMPLAZAR ESTE BLOQUE CON TU TYPEFORM:   -->
+        <!--                                           -->
+        <!-- Opción 1: Embed iframe                    -->
+        <!-- <iframe src="https://TU_USUARIO.typeform.com/to/TU_FORM_ID"
+                 style="width:100%;height:520px;border:none;">
+            </iframe>                                  -->
+        <!--                                           -->
+        <!-- Opción 2: Script Typeform                 -->
+        <!-- <div data-tf-live="TU_FORM_ID"></div>     -->
+        <!-- <script src="//embed.typeform.com/next/embed.js"></script> -->
+        <!-- ========================================= -->
+        <div class="typeform-placeholder">
+          <div class="tf-icon">📋</div>
+          <p><strong style="color:#fff;">TYPEFORM EMBED</strong></p>
+          <p>Aquí se mostrará tu formulario de aplicación. Reemplaza este placeholder con tu código de embed de Typeform.</p>
+          <code>&lt;iframe src="https://tu-typeform.com/to/ID"&gt;&lt;/iframe&gt;</code>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================================ -->
+  <!-- SECCIÓN — TESTIMONIOS EN VÍDEO              -->
+  <!-- ============================================ -->
+  <section class="testimonials-video-section">
+    <div class="container">
+      <h2 class="section-title">
+        Resultados <span class="underline">Reales</span> de <span class="underline">Traders</span> Reales Dentro de <span class="highlight">FX Proyect</span>…
+      </h2>
+      <p class="section-subtitle">Lo que dicen los alumnos que ya están dentro</p>
+
+      <div class="video-testimonials-grid">
+        <!-- Testimonio 1 -->
+        <div class="video-testimonial-card">
+          <p class="testimonial-name">Miguel A.</p>
+          <p class="testimonial-result">Aprobó su cuenta fondeada de $50K</p>
+          <p class="testimonial-detail">(en menos de 3 semanas)</p>
+          <div class="testimonial-arrow">↓</div>
+          <div class="video-testimonial-placeholder">
+            <div class="placeholder-inner">
+              <div class="play-icon-small"></div>
+              <span>VIDEO TESTIMONIO</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 2 -->
+        <div class="video-testimonial-card">
+          <p class="testimonial-name">Sergio L.</p>
+          <p class="testimonial-result">De cero a su primer payout</p>
+          <p class="testimonial-detail">(en 6 semanas con FX Proyect)</p>
+          <div class="testimonial-arrow">↓</div>
+          <div class="video-testimonial-placeholder">
+            <div class="placeholder-inner">
+              <div class="play-icon-small"></div>
+              <span>VIDEO TESTIMONIO</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio 3 -->
+        <div class="video-testimonial-card">
+          <p class="testimonial-name">David R.</p>
+          <p class="testimonial-result">2 cuentas fondeadas activas</p>
+          <p class="testimonial-detail">(operando en directo con Alejandro)</p>
+          <div class="testimonial-arrow">↓</div>
+          <div class="video-testimonial-placeholder">
+            <div class="placeholder-inner">
+              <div class="play-icon-small"></div>
+              <span>VIDEO TESTIMONIO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================================ -->
+  <!-- SECCIÓN — SCREENSHOTS / PRUEBA SOCIAL       -->
+  <!-- ============================================ -->
+  <section class="testimonials-screenshot-section">
+    <div class="container">
+      <div class="big-number-container">
+        <div class="big-number">52,9K+</div>
+        <p class="big-number-sub">traders siguen a @alekayfx en Instagram</p>
+      </div>
+
+      <h2 class="section-title">Resultados reales de la comunidad</h2>
+      <p class="section-subtitle" style="margin-bottom: 30px;">Screenshots de WhatsApp y Discord</p>
+
+      <div class="screenshot-grid">
+        <div class="screenshot-placeholder"><span>SCREENSHOT<br>RESULTADO<br>PAYOUT</span></div>
+        <div class="screenshot-placeholder"><span>SCREENSHOT<br>RESULTADO<br>PAYOUT</span></div>
+        <div class="screenshot-placeholder"><span>SCREENSHOT<br>RESULTADO<br>PAYOUT</span></div>
+        <div class="screenshot-placeholder"><span>SCREENSHOT<br>RESULTADO<br>PAYOUT</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+
+  <!-- ============================================ -->
+  <!-- CTA FINAL                                   -->
+  <!-- ============================================ -->
+  <section class="footer-cta-section">
+    <div class="container">
+      <h2 class="footer-cta-headline">¿Listo para operar <span class="highlight">como un profesional</span>?</h2>
+      <a href="#typeform" class="cta-button" id="cta-footer">QUIERO UNIRME A FX PROYECT →</a>
+      <p class="cta-subtext">Formación real · Operativa en directo · Que nadie te diga que es suerte</p>
+    </div>
+  </section>
+
+
+</body>
+</html>
